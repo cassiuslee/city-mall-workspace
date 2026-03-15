@@ -1,0 +1,13 @@
+请根据 docs/frontend-analysis 和 docs/api-compare/final-endpoint-contract.md，
+先只做数据库设计，不要生成 Java 代码。
+
+输出到：
+- docs/database/er-diagram.md
+- docs/database/table-design.md
+- city-mall-api/db/migration/V1__init_schema.sql
+
+要求：
+- 支持商品、分类、SKU、用户、地址、购物车、订单、订单项、支付记录
+- 所有表必须包含 id、create_time、update_time、deleted
+- 字段命名与前端接口尽量一致
+- 先给出表之间关系，再写 SQL
