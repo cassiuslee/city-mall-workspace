@@ -2,9 +2,9 @@
 
 ## Workspace Structure
 
-- `city-amll-web/` contains the frontend source code
+- `city-mall-web/` contains the frontend source code
 - `api-docs/` contains API documentation and OpenAPI files
-- `city-amll-api/` contains the Spring Boot 3 backend project
+- `city-mall-api/` contains the Spring Boot 3 backend project
 - `prompts/` contains reusable prompts
 
 ## Backend Stack
