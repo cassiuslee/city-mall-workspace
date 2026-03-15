@@ -1,0 +1,10 @@
+- Decision: Use `npm --prefix city-mall-web run lint-staged` in the root hook to ensure lint-staged runs against the frontend package regardless of the root invocation path.
+- Rationale: Keeps hook behavior deterministic when invoked from repository root and avoids brittle path calculations.
+- Note: This change does not modify package.json or other hook files; it only adjusts the pre-commit hook command.
+- Decision: Create root workspace .gitignore at workspace root to ignore artifacts workspace-wide; Patterns mirror city-mall-web/.gitignore plus workspace-specific entries city-mall-web/unpackage/ and city-mall-web/.hbuilderx/.
+- Rationale: Centralizes artifact ignores without touching frontend repo; maintains separation of concerns.
+- Impact: No changes to source code; ensures workspace-wide hygiene for generated artifacts.
+- Decision: Use a git bundle as the safety artifact for nested repo history backup at `.sisyphus/evidence/city-mall-web-git-backup.bundle`.
+- Rationale: `git bundle` preserves refs/history in a portable single file and supports integrity verification before nested metadata removal.
+- Decision: Store verify output at `.sisyphus/evidence/city-mall-web-git-backup-verify.txt` for auditability.
+- Rationale: Keeps explicit evidence of bundle integrity in the same evidence directory.

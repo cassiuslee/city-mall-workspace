@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run lint-staged from the repository root by targeting the frontend folder explicitly
+# This ensures compatibility when the root repository invokes the hook directory
+# Use npm --prefix to specify city-mall-web as the working directory for the script
+npm --prefix city-mall-web run lint-staged

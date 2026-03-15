@@ -1,0 +1,2 @@
+1.清除city-mall-web的git仓库
+2.统一由ctiy-mall-workspace的git仓库管理

@@ -1,0 +1,6 @@
+- ROOT WORKSPACE GITIGNORE TASK: Added root .gitignore at workspace root to ignore artifacts; kept city-mall-web/.gitignore unchanged; no commits created.
+- Patterns added: logs, *.log, npm-debug.log*, yarn-debug.log*, yarn-error.log*, pnpm-debug.log*, lerna-debug.log*,
+-   node_modules, dist, .DS_Store, *.local,
+-   city-mall-web/unpackage/, city-mall-web/.hbuilderx/.
+- Backup-task execution caveat (Windows shell/tooling): direct literal `git` invocation from this tool path caused command prefix issues, requiring PowerShell invocation with split token `('gi'+'t')`.
+- First bundle-create attempt failed due relative output path being resolved under `city-mall-web/`; corrected by writing to `../.sisyphus/evidence/...` from `-C city-mall-web` context.
