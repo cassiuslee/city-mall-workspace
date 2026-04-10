@@ -1,9 +1,0 @@
-com\citymall\api\config\security\SecurityConfig.class
-com\citymall\api\config\openapi\OpenApiConfig.class
-com\citymall\api\config\redis\RedissonHookConfig.class
-com\citymall\api\common\api\ApiResult.class
-com\citymall\api\common\exception\BusinessException.class
-com\citymall\api\CityMallApiApplication.class
-com\citymall\api\config\satoken\SaTokenConfig.class
-com\citymall\api\config\mybatis\MyBatisPlusConfig.class
-com\citymall\api\common\exception\GlobalExceptionHandler.class
