@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author cqkir
+ */
 @Data
 public class MemberUserVO {
 
