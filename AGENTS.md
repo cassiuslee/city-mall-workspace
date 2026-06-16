@@ -6,6 +6,7 @@
 - `api-docs/` contains API documentation and OpenAPI files
 - `city-mall-api/` contains the Spring Boot 3 backend project
 - `docs/` contains analysis docs, ER diagrams, and mapping results
+- `docs/database/database-design-standard.md` is the global database design standard
 - `prompts/` contains reusable prompts
 
 ## Backend Stack
@@ -32,23 +33,23 @@
 - Controller must not directly expose entity objects
 - Must create DTO / VO / Query classes
 - Every schema change must generate Flyway migration
-- All tables include:
-  - `id`
-  - `create_time`
-  - `update_time`
-  - `deleted`
-- Prefer aligning API fields with frontend request/response structure
+- Database design must follow `docs/database/database-design-standard.md`
+- New business tables must use `f_id varchar(50)` as the primary key and Snowflake ID as the ID generation strategy
+- New business tables must include the required `f_*` base fields defined in `docs/database/database-design-standard.md`
+- Do not use historical `id/create_time/update_time/deleted` as the standard for new tables
+- Prefer aligning API fields with frontend request/response structure when it does not conflict with the global database standard
 - Prioritize actual frontend usage over outdated API docs when conflicts exist
 
 ## Workflow
 
 1. Analyze frontend first
 2. Compare with API docs
-3. Design database schema
-4. Generate Flyway migrations
-5. Generate backend module one by one
-6. Align request/response contract with frontend
-7. Add validation and OpenAPI annotations
+3. Read `docs/database/database-design-standard.md` before database work
+4. Design database schema
+5. Generate Flyway migrations
+6. Generate backend module one by one
+7. Align request/response contract with frontend
+8. Add validation and OpenAPI annotations
 
 ## Output Requirements
 
@@ -65,7 +66,7 @@ Use repo evidence first, then act.
 ## Current Workspace Reality
 
 - Active implementation today is `city-mall-web/` (uni-app Vue 3 + TypeScript frontend).
-- `api-docs/` and `docs/` are present and used for analysis and contract reference.
+- `api-docs` and `docs/` are present and used for analysis and contract reference.
 - `prompts/` is present for reusable prompts.
 - `city-mall-api/` is referenced in docs and README as a planned backend, but backend code is not implemented yet.
 - There is currently no runnable Spring Boot module, no Maven wrapper, and no Gradle wrapper in this workspace.
@@ -75,6 +76,7 @@ Use repo evidence first, then act.
 - `city-mall-web/`: frontend source, lint/typecheck/build scripts, husky hooks.
 - `api-docs/`: exported API documents (source of backend contract expectations).
 - `docs/`: analysis output, ER notes, mapping docs.
+- `docs/database/database-design-standard.md`: global database design standard and required base fields.
 - `prompts/`: prompt assets.
 - `.sisyphus/`: orchestrator planning/notepad artifacts.
 
@@ -85,7 +87,10 @@ When sources conflict, use this order:
 1. Existing frontend behavior in `city-mall-web/src/**`
 2. Frontend service contracts in `city-mall-web/src/services/**`
 3. API docs in `api-docs/**`
-4. Historical notes in `docs/**`
+4. Global database rules in `docs/database/database-design-standard.md` for database/schema work
+5. Historical notes in `docs/**`
+
+For database/schema work, `docs/database/database-design-standard.md` overrides older database docs and Notion archives.
 
 ## Package Manager and Command Conventions
 
@@ -186,11 +191,14 @@ Error handling and auth behavior:
 These rules apply when backend implementation starts:
 
 - Analyze frontend first, then reconcile with API docs.
+- Read `docs/database/database-design-standard.md` before database/schema work.
 - All APIs should use unified wrapper `ApiResult`.
 - Controllers should not expose entity objects directly; use DTO/VO/Query models.
 - Every schema change must include a Flyway migration.
-- Table baseline fields: `id`, `create_time`, `update_time`, `deleted`.
-- Prefer frontend-observed fields over stale doc fields when conflicts exist.
+- New business tables must use `f_id varchar(50)` as the primary key and Snowflake ID.
+- New business tables must include all required `f_*` base fields from the global database standard.
+- Do not use historical `id/create_time/update_time/deleted` as the standard for new tables.
+- Prefer frontend-observed fields over stale doc fields when conflicts exist and when this does not violate the global database standard.
 - Implement backend incrementally by domain: home, category, product, auth, address, cart, order, payment.
 - Always write analysis outputs to `docs/`.
 - Before modifying code, state a short execution plan.
